@@ -550,12 +550,12 @@ export const Events = {
 
 export const Publications = {
   items: [
-    {
-      title: "Antarikshvani - VIT Stellar Newsletter 2026",
-      desc: "Your portal to the universe, delivering deep space insights, theoretical physics, and cosmic exploration updates.",
-      image: "/assets/publications/Antarikshvani - VIT Stellar Newsletter 2026.webp",
-      file: "/assets/publications/Antarikshvani - VIT Stellar Newsletter 2026.pdf",
-    },
+    // {
+    //   title: "Antarikshvani - VIT Stellar Newsletter 2026",
+    //   desc: "Your portal to the universe, delivering deep space insights, theoretical physics, and cosmic exploration updates.",
+    //   image: "/assets/publications/Antarikshvani - VIT Stellar Newsletter 2026.webp",
+    //   file: "/assets/publications/Antarikshvani - VIT Stellar Newsletter 2026.pdf",
+    // },
     {
       title: "23rd National Space Science Symposium",
       desc: "Publication by Technical Team Captain Mahak Yadav at the 23rd National Space Science Symposium, Page 284, showcasing research excellence.",
