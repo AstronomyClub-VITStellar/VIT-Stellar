@@ -396,12 +396,12 @@ export const Fest = {
   sponsorsSubtext: 'Thank you to our Gravitas 2026 sponsor!',
   galleryUploadDesc: 'Were you at our Fest event? Share your shots with us by uploading them on below link.',
   galleryDriveLink: 'https://drive.google.com/drive/folders/1_4kXXu71Ig03Q1UTc5fBqhOqNCHQ226n?usp=sharing',
-  teamFormEventName: 'Rovaris',
+  teamFormEventName: 'Aerovate 3.0',
   teamFormInstructions: [
     `Last Date to fill the form is ${formatDeadlineNotice(festDeadlines.teamRegClosingDate)}`,
     'This form is to be filled by the Team Leader only, on behalf of the whole team.',
     'Fill in every field exactly as it should appear on record — double check the details you entered before submitting.',
-    'In case of any queries, please feel free to contact Event POC : Haneesh Yadav - 9103355700.',
+    'In case of any queries, please feel free to contact Event POC : Khushii Anand - 8308036411.',
   ],
   ...festDeadlines,
 };
