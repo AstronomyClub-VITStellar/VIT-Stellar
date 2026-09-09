@@ -22,10 +22,17 @@ const NAV_LINKS = [
 //   href: "#merchandise",
 // };
 
+// const ANNOUNCEMENT = {
+//   show: true,   // ← set to false to hide the bar, true to show it
+//   icon: "festival",
+//   text: "GRAVITAS 2026",
+//   href: "#fest",
+// };
+
 const ANNOUNCEMENT = {
   show: true,   // ← set to false to hide the bar, true to show it
-  icon: "festival",
-  text: "GRAVITAS 2026",
+  icon: "groups",
+  text: "AEROVATE 3.0 TEAM FORMATION",
   href: "#fest",
 };
 
