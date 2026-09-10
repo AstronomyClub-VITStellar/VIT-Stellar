@@ -6,7 +6,7 @@ export const merchandiseDeadlines = {
 export const festDeadlines = {
   shotsUploadDate:    new Date('2026-09-05T09:00:00+05:30'),
   teamRegOpenDate:    new Date('2026-09-10T00:00:00+05:30'),
-  teamRegClosingDate: new Date('2026-09-10T17:59:59+05:30'),
+  teamRegClosingDate: new Date('2026-09-10T23:59:59+05:30'),
 };
 
 export const boardApplicationDeadlines = {
