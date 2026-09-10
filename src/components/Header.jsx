@@ -16,28 +16,28 @@ const NAV_LINKS = [
 ];
 
 // const ANNOUNCEMENT = {
-//   show: true,   // ← set to false to hide the bar, true to show it
+//   show: true,  
 //   icon: "shopping_bag",
 //   text: "MERCHANDISE 2026 IS LIVE",
 //   href: "#merchandise",
 // };
 
 // const ANNOUNCEMENT = {
-//   show: true,   // ← set to false to hide the bar, true to show it
+//   show: true,   
 //   icon: "festival",
 //   text: "GRAVITAS 2026",
 //   href: "#fest",
 // };
 
 const ANNOUNCEMENT = {
-  show: true,   // ← set to false to hide the bar, true to show it
+  show: true,   
   icon: "groups",
   text: "AEROVATE 3.0 TEAM FORMATION",
-  href: "#fest",
+  href: "#fest-team-registration",
 };
 
 // const ANNOUNCEMENT = {
-//   show: true,   // ← set to false to hide the bar, true to show it
+//   show: true,   
 //   icon: "how_to_reg",
 //   text: "BOARD APPLICATION 2027",
 //   href: "#fest",
