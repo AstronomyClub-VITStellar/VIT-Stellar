@@ -22,19 +22,19 @@ const NAV_LINKS = [
 //   href: "#merchandise",
 // };
 
-// const ANNOUNCEMENT = {
-//   show: true,   
-//   icon: "festival",
-//   text: "GRAVITAS 2026",
-//   href: "#fest",
-// };
-
 const ANNOUNCEMENT = {
   show: true,   
-  icon: "groups",
-  text: "AEROVATE 3.0 TEAM FORMATION",
-  href: "#fest-team-registration",
+  icon: "festival",
+  text: "GRAVITAS 2026",
+  href: "#fest",
 };
+
+// const ANNOUNCEMENT = {
+//   show: true,   
+//   icon: "groups",
+//   text: "AEROVATE 3.0 TEAM FORMATION",
+//   href: "#fest-team-registration",
+// };
 
 // const ANNOUNCEMENT = {
 //   show: true,   
