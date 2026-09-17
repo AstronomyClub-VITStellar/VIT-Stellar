@@ -395,7 +395,7 @@ export const Fest = {
   sponsor: { name: '', logo: '/assets/gravitas2026/SBI.webp', url: 'https://sbi.bank.in/' },
   sponsorsSubtext: 'Thank you to our Gravitas 2026 sponsor!',
   galleryUploadDesc: 'Were you at our Fest event? Share your shots with us by uploading them on below link.',
-  galleryDriveLink: 'https://drive.google.com/drive/folders/1_4kXXu71Ig03Q1UTc5fBqhOqNCHQ226n?usp=sharing',
+  galleryDriveLink: '',
   teamFormEventName: 'Aerovate 3.0',
   teamFormInstructions: [
     `Last Date to fill the form is ${formatDeadlineNotice(festDeadlines.teamRegClosingDate)}`,
