@@ -54,6 +54,41 @@ export function festPad(n) {
   return String(n).padStart(2, '0');
 }
 
+// ---------------------------------------------------------------------------
+// Event end detection
+// Events store `date` ("18 SEPT - 19 SEPT") and `time` ("09:00 AM - 05:00 PM")
+// as display strings. An event is over once (END DATE + END TIME) has passed,
+// e.g. 19 SEPT 05:00 PM for the example above. Times are treated as IST so the
+// switch happens at the same moment for every visitor, whatever their timezone.
+// ---------------------------------------------------------------------------
+const FEST_YEAR = 2026;
+const FEST_TZ_OFFSET = '+05:30';
+const FEST_MONTHS = {
+  JAN: 1, FEB: 2, MAR: 3, APR: 4, MAY: 5, JUN: 6,
+  JUL: 7, AUG: 8, SEP: 9, OCT: 10, NOV: 11, DEC: 12,
+};
+
+function festParseEventEnd(dateStr, timeStr, year = FEST_YEAR) {
+  if (!dateStr || !timeStr) return null;
+
+  const endDate = dateStr.split('-').pop().trim();   // "19 SEPT"
+  const endTime = timeStr.split('-').pop().trim();   // "05:00 PM"
+
+  const dm = endDate.match(/^(\d{1,2})\s+([A-Za-z]{3})/);
+  const tm = endTime.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+  if (!dm || !tm) return null;
+
+  const month = FEST_MONTHS[dm[2].toUpperCase()];
+  if (!month) return null;
+
+  let hour = parseInt(tm[1], 10) % 12;
+  if (tm[3].toUpperCase() === 'PM') hour += 12;
+
+  const iso = `${year}-${festPad(month)}-${festPad(dm[1])}T${festPad(hour)}:${tm[2]}:00${FEST_TZ_OFFSET}`;
+  const d = new Date(iso);
+  return isNaN(d.getTime()) ? null : d;
+}
+
 function FestPocCarousel({ pocs, activeEventIndex = 0, eventsCount, onSelect }) {
   const trackRef = useRef(null);
   const dragInfo = useRef({ active: false, startX: 0, startScroll: 0, moved: false });
@@ -767,6 +802,12 @@ function FestSection() {
   const now = useFestNow();
   const isTeamRegOpen = now >= Fest.teamRegOpenDate && now <= Fest.teamRegClosingDate;
 
+  // Once the active event's end date + end time has passed, the Register button
+  // is replaced by the final registration count (event.regCount, e.g. "80/80").
+  const currentEvent = Fest.events[activeEvent];
+  const eventEnd = festParseEventEnd(currentEvent.date, currentEvent.time);
+  const isEventOver = eventEnd ? now >= eventEnd : false;
+
   const festPocs = Fest.events.flatMap((ev, eventIndex) =>
     (ev.pocs || []).map((poc) => ({
       ...poc,
@@ -867,15 +908,26 @@ function FestSection() {
                   <Icon name="groups" />
                   <span>{Fest.events[activeEvent].teamSize}</span>
                 </div>
-                <a
-                  href={Fest.events[activeEvent].registerUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="fest-premier-info-cell fest-premier-register-cell"
-                >
-                  <span>Register Now</span>
-                  <Icon name="arrow_forward" />
-                </a>
+                {isEventOver ? (
+                  <div className="fest-premier-info-cell">
+                    <Icon name="how_to_reg" />
+                    <span>
+                      {currentEvent.regCount
+                        ? `${currentEvent.regCount} Registered`
+                        : 'Registration Closed'}
+                    </span>
+                  </div>
+                ) : (
+                  <a
+                    href={currentEvent.registerUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="fest-premier-info-cell fest-premier-register-cell"
+                  >
+                    <span>Register Now</span>
+                    <Icon name="arrow_forward" />
+                  </a>
+                )}
               </div>
             </div>
           </div>

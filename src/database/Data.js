@@ -16,7 +16,7 @@ export const Hero = {
 
 export const AboutUs = {
   hero: {
-    image: "/assets/events/Cosmic Walk 4.0.webp",
+    image: "/assets/events/Rovaris.webp",
   },
   featured: {
     title: "WE ARE VIT-STELLAR!",
@@ -49,7 +49,7 @@ export const Fame = {
       desc: "Star-gazers and cosmic explorers converge in a vibrant, stellar community, collaborating on deep-space discovery projects and sharing celestial insights with expert astronomers and fellow enthusiasts.",
       icon: "auto_awesome",
       images: [
-        { id: "fc1-1", name: "Vishesh Bansal", photo: "/assets/fame/random.webp", size: "lg", featured: true },
+        { id: "fc1-1", name: "VIT STELLAR", photo: "/assets/fame/1.webp", size: "lg", featured: true },
       ],
     },
     {
@@ -57,7 +57,7 @@ export const Fame = {
       desc: "Forging a lasting cosmic legacy at VIT, our club has fostered decades of stellar exploration, student innovation, and academic passion for astronomy.",
       icon: "rocket_launch",
       images: [
-        { id: "fc2-1", name: "Yajat Malhotra", video: "/assets/fame/Aerovate 2.0.mp4", size: "lg", featured: true },
+        { id: "fc2-1", name: "VIT STELLAR", video: "/assets/fame/Aerovate 2.0.mp4", size: "lg", featured: true },
       ],
     },
     {
@@ -65,7 +65,7 @@ export const Fame = {
       desc: "From interactive stargazing nights to virtual summits, our diverse range of curated experiences bridges the gap between deep-space science and eager minds, building an active hub for astronomical discovery.",
       icon: "public", 
       images: [
-        { id: "fc3-1", name: "Karan Deshpande", photo: "/assets/fame/random 2.webp", size: "lg", featured: true },
+        { id: "fc3-1", name: "VIT STELLAR", photo: "/assets/fame/3.webp", size: "lg", featured: true },
       ],
     },
   ],
@@ -359,6 +359,7 @@ export const Fest = {
       date: "05 SEPT - 06 SEPT",
       time: "09:00 AM - 05:00 PM",
       teamSize: "4-5",
+      regCount: "80/80",
       registerUrl: "https://gravitas.vit.ac.in/events/3cd06454-d26e-4770-83ec-1f222f9d19ab",
       pocs: [
         { name: 'Haneesh Yadav', image: '/assets/team/2026/Haneesh Yadav.webp', phone: '+91 91033 55700' },
@@ -372,6 +373,7 @@ export const Fest = {
       date: "11 SEPT - 12 SEPT",
       time: "09:00 AM - 05:00 PM",
       teamSize: "4-5",
+      regCount: "190/190",
       registerUrl: "https://gravitas.vit.ac.in/events/b706e255-5801-4091-a6c2-1a4b6f3f0098",
       pocs: [
         { name: 'Khushii Anand', image: '/assets/team/2026/Khushii Anand.webp', phone: '+91 83080 36411' },
@@ -385,6 +387,7 @@ export const Fest = {
       date: "18 SEPT - 19 SEPT",
       time: "09:00 PM - 06:00 AM",
       teamSize: "SOLO",
+      regCount: "300/300",
       tag: "OVERNIGHT",
       registerUrl: "https://gravitas.vit.ac.in/events/0629102b-cc5f-4992-8921-2e55df1cb2f9",
       pocs: [
@@ -392,7 +395,7 @@ export const Fest = {
       ],
     },
   ],
-  sponsor: { name: '', logo: '/assets/gravitas2026/SBI.webp', url: 'https://sbi.bank.in/' },
+  sponsor: { name: '', logo: '/assets/gravitas2026/SBI.webp', url: 'https://sbi.bank.in' },
   sponsorsSubtext: 'Thank you to our Gravitas 2026 sponsor!',
   galleryUploadDesc: 'Were you at our Fest event? Share your shots with us by uploading them on below link.',
   galleryDriveLink: '',
@@ -492,58 +495,76 @@ export const DomainSelection = {
 export const Events = {
   items: [
     {
+      title: "Celestial Dive 5.0",
+      desc: "Celestial Dive 5.0 is an immersive journey beyond Earth, offering a night of cosmic exploration. Participants observe celestial wonders through powerful telescopes, explore astronomy through engaging sessions, and experience immersive planetariums. A moonlit ambiance enhances the experience, inspiring wonder, curiosity, and a deeper connection with the universe.",
+      image: "/assets/events/Celestial Dive 5.0.webp",
+      side: "right",
+    },
+    {
+      title: "Aerovate 3.0",
+      desc: "Aerovate 3.0 is a two-day hands-on rocketry workshop introducing participants to aerospace engineering. Through interactive sessions, participants explore aerodynamics, rocket stability, and propulsion. They then design, build, and launch model rockets, gaining practical experience and understanding the complete engineering journey from concept and design to a successful launch.",
+      image: "/assets/events/Aerovate 3.0.webp",
+      side: "left",
+    },
+    {
+      title: "Rovaris",
+      desc: "Ever wondered what it feels like to be part of a Mars mission? ROVARIS combines space technology, strategy, and hands-on rover building. Day 1 features an expert-led workshop and software challenges. Day 2 brings rover building, a thrilling race, and terrain competition. Learn, compete, build, and explore—all in one unforgettable experience.",
+      image: "/assets/events/Rovaris.webp",
+      side: "right",
+    },
+    {
       title: "Cosmic Walk 4.0",
       desc: "Cosmic walk 4.0 is a guided stargazing event organized by the astronomy club, vit stellar. The session offers participants an immersive experience of the night sky through live telescope observations at kc lawn, accompanied by insights into celestial objects and constellations. The event concludes near mb, providing a unique opportunity to explore astronomy in an engaging and structured setting.",
       image: "/assets/events/Cosmic Walk 4.0.webp",
-      side: "right",
+      side: "left",
     },
     {
       title: "Celestial Dive 4.0",
       desc: "Celestial Dive 4.0 is an overnight stargazing event in collaboration with an external astronomy agency. Using advanced telescopes, participants can observe the Moon, Jupiter, Saturn, Andromeda, and more—even on cloudy nights. It’s a magical experience that brings the wonders of the universe closer than ever before.",
       image: "/assets/events/Celestial Dive 4.0.webp",
-      side: "left",
+      side: "right",
     },
     {
       title: "Aerovate 2.0",
       desc: "Aerovate 2.0 is an exciting two-day rocket-building workshop designed for hands-on learning. On the first day, participants explore the fundamentals of rocket design and build their own rockets with expert guidance from Thrust Tech India. The second day brings the thrill of launching their creations into the sky.",
       image: "/assets/events/Aerovate 2.0.webp",
-      side: "right",
+      side: "left",
     },
     {
       title: "Cosmic Walk 3.0",
       desc: "VIT STELLAR s flagship event, delivered a magical night of stargazing and astrophotography, for an unforgettable campus experience",
       image: "/assets/events/Cosmic Walk 3.0.webp",
-      side: "left",
+      side: "right",
     },
     {
       title: "Celestial Combat",
       desc: "Celestial Combat was a flagship Riviera event where three teams clashed in a high-adrenaline, strategic gel blaster battle to capture flags and dominate the arena.",
       image: "/assets/events/Celestial Combat.webp",
-      side: "right",
+      side: "left",
     },
     {
       title: "Space Week",
       desc: "Space Week was a vibrant celebration of cosmic exploration, uniting clubs and students through events that sparked curiosity, creativity, and discovery.",
       image: "/assets/events/Space Week.webp",
-      side: "left",
+      side: "right",
     },
     {
       title: "Celestial Dive 3.0",
       desc: "A Fest event by SPACE India and VIT, featuring telescope stargazing and expert-led sessions that sparked passion in students, professors, and enthusiasts.",
       image: "/assets/events/Celestial Dive 3.0.webp",
-      side: "right",
+      side: "left",
     },
     {
       title: "Aerovate",
       desc: "Aerovate, a premier Fest event, was a hands-on rocketry workshop where students designed, simulated, and launched model rockets, turning ideas into flight.",
       image: "/assets/events/Aerovate.webp",
-      side: "left",
+      side: "right",
     },
     {
       title: "Zero Gravity Dance Party",
       desc: "Zero Gravity Dance Party was a surreal cosmic dance experience where music met motion in a gravity-defying, space-themed atmosphere.",
       image: "/assets/events/Zero Gravity Dance Party.webp",
-      side: "right",
+      side: "left",
     },
   ],
 };
@@ -613,13 +634,12 @@ export const Blogs = {
 };
 
 export const Partners = {
-  items: [
-    { name: "Intec",             logo: "/assets/partners/intec.webp", },
-    { name: "Thrust Tech India", logo: "/assets/partners/thrust-tech.webp", url: "https://www.thrusttechindia.com/" },
-    { name: "Space India",       logo: "/assets/partners/space.webp",      url: "https://space-india.com/" },
-    { name: "Foxmula",           logo: "/assets/partners/foxmula.webp",  },
-    { name: "SEH",               logo: "/assets/partners/seh.webp",  },
-    { name: "hART",              logo: "/assets/partners/hart.webp",  },
+  items: [ 
+    { name: "State Bank of India",   logo: "/assets/partners/SBI.webp",         url: "https://sbi.bank.in" },
+    { name: "Vaayusastra Aerospace", logo: "/assets/partners/Vaayusastra.png",  url: "https://www.vaayusastra.com/" },
+    { name: "Thrust Tech India",     logo: "/assets/partners/thrust-tech.webp", url: "https://www.thrusttechindia.com" },
+    { name: "Space Trek",            logo: "/assets/partners/SpaceTrek.webp",   url: "https://learnspacescience.com" },
+    
   ],
 };
 
