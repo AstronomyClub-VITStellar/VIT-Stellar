@@ -1,16 +1,49 @@
-# React + Vite
+# VIT Stellar — Club Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React 19 + Vite single-page site for VIT Stellar (Astronomy Club, VIT Vellore).
+Forms (merchandise, board application, team registration, feedback, certificates) talk to Supabase.
 
-Currently, two official plugins are available:
+## Getting started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+cp .env.example .env      # then fill in your Supabase URL + anon key
+npm run dev               # http://localhost:3000
+npm run build             # production build -> dist/
+npm run lint              # oxlint
+```
 
-## React Compiler
+Database setup (tables, RLS policies, storage): see `supabase/setup.sql`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Project structure
 
-## Expanding the Oxlint configuration
+```
+src/
+├─ main.jsx, App.jsx        entry + router
+├─ pages/                   LandingPage (composes all sections)
+├─ features/                one .jsx file per page section (Hero, AboutUs, Fame, Team, Fest, ...)
+├─ components/
+│  ├─ layout/               Header, Footer (+ their .css), StarField
+│  └─ ui/                   Icon, SelectDropdown, SocialIcon, ErrorBoundary
+├─ hooks/                   useCountdown, useNow
+├─ content/                 page text/data, one file per section
+├─ config/                  deadlines.js, features.js, announcement.js
+├─ lib/                     supabaseClient, dateUtils
+└─ styles/                  index.css (base), main.css (section styles)
+supabase/setup.sql          database schema + policies
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Imports use the `@/` alias for `src/` (e.g. `import Icon from '@/components/ui/Icon'`).
+
+## Common edits
+
+| I want to…                                   | Edit                                   |
+|----------------------------------------------|----------------------------------------|
+| Change page text, team, events, FAQ          | `src/content/<section>.js`             |
+| Change a form open/close date                | `src/config/deadlines.js` **and** the time-lock policies in `supabase/setup.sql` |
+| Change the header announcement capsule       | `src/config/announcement.js`           |
+| Show/hide Board Application / Domain Selection / fest sponsor / fest POCs | `src/config/features.js` |
+| Add images/PDFs                              | `public/assets/...`                    |
+
+> The database enforces form deadlines (RLS policies use `now()`); `deadlines.js` only controls what the UI shows.
+> Keep both in sync.

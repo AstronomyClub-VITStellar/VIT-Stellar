@@ -1,0 +1,398 @@
+.mp-footer .material-icons-round {
+  font-family: 'Material Icons Round';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
+.mp-footer {
+  background: var(--bg, #0f0f11);
+  border-top: 1px solid var(--border, rgba(255,255,255,0.1));
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  position: relative; z-index: 2;
+}
+
+.mp-footer-body {
+  padding: 2rem;
+  box-sizing: border-box;
+  max-width: 100%; margin: 0 auto;
+  display: flex; align-items: stretch; gap: 0;
+}
+
+.mp-footer-copyright {
+  font-size: 0.68rem; color: rgba(255,255,255,0.2);
+  margin-top: auto; padding-top: 1.5rem;
+  letter-spacing: 0.04em;
+}
+
+.mp-footer-cols, .mp-footer-cols * {
+  box-sizing: border-box;
+}
+
+.mp-footer-cols {
+  border: 1.5px solid rgba(255,255,255,0.18);
+  display: grid;
+  grid-template-columns: 2fr 1.35fr 1.35fr;
+  overflow: hidden;
+  width: 100%;
+  margin: 0;
+  padding-bottom: 0;
+  position: relative;
+}
+
+.mp-footer-row-top-item {
+  border-bottom: 1.5px solid rgba(255,255,255,0.18);
+}
+
+.mp-footer-col.mp-footer-row-top-item {
+  padding-bottom: 0.5rem;
+}
+
+.mp-footer-col {
+  display: flex; flex-direction: column; gap: 0;
+  padding: 1.5rem 2rem 1.5rem;
+}
+.mp-footer-col-contact,
+.mp-footer-col-designed {
+  border-right: 1.5px solid rgba(255,255,255,0.18);
+}
+
+.mp-footer-social-icons {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 0.5rem;
+}
+
+.mp-footer-social-icons--below {
+  margin-top: 1.1rem;
+}
+
+.mp-footer-address-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 0.9rem;
+}
+
+.mp-footer-address-row .mp-footer-social-btn {
+  cursor: default;
+  flex-shrink: 0;
+}
+
+.mp-footer-address-text {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.01em;
+  line-height: 1.55;
+}
+
+.mp-footer-email-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 0.5rem;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.mp-footer-email-row:hover .mp-footer-social-btn {
+  border-color: #a78bd6;
+  background: rgba(167,139,214,0.08);
+  color: #a78bd6;
+}
+
+.mp-footer-email-row:hover .mp-footer-email-text {
+  color: rgba(255,255,255,0.85);
+}
+
+.mp-footer-email-text {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.01em;
+  transition: color 0.18s;
+}
+
+.mp-footer-social-btn {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: rgba(255,255,255,0.5);
+  transition: border-color 0.18s, background 0.18s, color 0.18s;
+}
+.mp-footer-social-btn:hover {
+  border-color: #a78bd6;
+  background: rgba(167,139,214,0.08);
+  color: #a78bd6;
+}
+
+button.mp-footer-social-btn {
+  padding: 0;
+  font-family: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.mp-footer-dev-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 12px;
+  margin-bottom: 0.4rem;
+}
+
+.mp-footer-dev-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.mp-footer-plain-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.55);
+  transition: color 0.18s;
+}
+.mp-footer-plain-icon:hover {
+  color: #ffffff;
+}
+
+.mp-footer-col-heading {
+  font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.9);
+  margin-bottom: 1.25rem;
+}
+
+.mp-footer-col-link {
+  font-size: 0.82rem; color: rgba(255,255,255,0.4);
+  cursor: pointer; padding: 0.4rem 0;
+  display: flex; align-items: center; gap: 4px;
+  transition: color 0.18s;
+}
+.mp-footer-col-link:hover { color: #a78bd6; }
+
+/* Contact Us — email / name / message, all fields shown together */
+.mp-contact-form {
+  display: flex; flex-direction: column; gap: 10px;
+  max-width: 340px; margin: 0.50rem 0 1rem 2.2rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 16px;
+}
+
+.mp-contact-input {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  color: #fff;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+.mp-contact-input::placeholder { color: rgba(255,255,255,0.28); }
+.mp-contact-input:focus { border-color: #a78bd6; }
+.mp-contact-input:-webkit-autofill,
+.mp-contact-input:-webkit-autofill:hover,
+.mp-contact-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  -webkit-box-shadow: 0 0 0 1000px rgba(255,255,255,0.05) inset;
+  caret-color: #fff;
+}
+
+.mp-contact-chat-wrap { position: relative; display: flex; align-items: center; width: 100%; }
+.mp-contact-chat-input {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 10px;
+  padding: 12px 52px 12px 16px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  color: #fff;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+.mp-contact-chat-input::placeholder { color: rgba(255,255,255,0.32); }
+.mp-contact-chat-input:focus { border-color: rgba(255,255,255,0.3); }
+.mp-contact-chat-send {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  width: 34px; height: 34px;
+  border-radius: 10px; border: none;
+  background: #a78bd6; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: opacity 0.15s;
+}
+.mp-contact-chat-send:hover { opacity: 0.85; }
+.mp-contact-chat-send:disabled { opacity: 0.5; cursor: default; }
+
+.mp-contact-error {
+  font-size: 12px; color: #ef6a5f;
+  background: rgba(239,106,95,0.08);
+  border: 1px solid rgba(239,106,95,0.4);
+  padding: 8px 10px; border-radius: 8px;
+}
+.mp-contact-success {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; color: rgba(255,255,255,0.75);
+  padding: 8px 0; margin-top: 0.75rem; max-width: 340px;
+}
+
+
+.mp-footer-col-connect {
+}
+
+.mp-footer-divider {
+  width: calc(100% + 4rem);
+  margin-left: -2rem;
+  margin-right: -2rem;
+  height: 1px;
+  background: rgba(255,255,255,0.18);
+  margin-top: 1.5rem;
+  margin-bottom: 1.25rem;
+  flex-shrink: 0;
+}
+
+.mp-footer-col-legal {
+  grid-column: 3;
+}
+
+.mp-footer-bg {
+  grid-column: 1 / 3;
+  grid-row: 2;
+  display: flex; align-items: center; gap: 0.25em;
+  font-size: 9vw;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  user-select: none; pointer-events: none;
+  line-height: 1; 
+  padding: 0 0 0 1.5rem;
+  border-right: 1.5px solid rgba(255,255,255,0.18);
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.mp-footer-wm-logo {
+  height: 0.8em;
+  width: auto;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.mp-footer-copyright-bottom {
+  font-size: 0.68rem; color: rgba(255,255,255,0.7);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2rem;
+}
+
+/* ════════════════════════════
+   RESPONSIVE
+════════════════════════════ */
+@media (max-width: 1024px) {
+  /* Footer — tablet: 2-col grid */
+  .mp-footer-cols {
+    grid-template-columns: 1fr 1fr;
+    margin: 0;
+  }
+  .mp-footer-body {
+    padding: 1rem;
+  }
+  .mp-footer-col {
+    padding: 2rem 1.25rem;
+  }
+  .mp-footer-col-contact { grid-column: 1 / -1; border-right: none; }
+  .mp-footer-col-designed { border-right: none; }
+  .mp-footer-col-connect { border-bottom: 1.5px solid rgba(255,255,255,0.1); }
+  .mp-footer-col-legal {
+    grid-column: 2;
+    border-left: 1.5px solid rgba(255,255,255,0.18);
+    border-bottom: 1.5px solid rgba(255,255,255,0.1);
+  }
+  .mp-footer-bg {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    font-size: clamp(2rem, 6vw, 4rem);
+    padding: 1.5rem 0 1rem 1.25rem;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Footer — mobile landscape: single column */
+  .mp-footer-body { flex-direction: column; padding: 0.75rem; }
+  .mp-footer-cols {
+    grid-template-columns: 1fr;
+    margin: 0;
+  }
+  .mp-footer-col {
+    padding: 1.5rem 1rem;
+    border-right: none !important;
+    border-left: none !important;
+    border-bottom: 1.5px solid rgba(255,255,255,0.1) !important;
+  }
+  .mp-footer-col-contact,
+  .mp-footer-col-designed,
+  .mp-footer-col-connect,
+  .mp-footer-col-legal {
+    grid-column: 1;
+  }
+  .mp-footer-copyright-bottom { margin-top: 1rem; white-space: normal; }
+
+  /* Contact form was nudged right by a left margin for the desktop
+     layout; on mobile it should sit centered instead. */
+  .mp-contact-form {
+    margin: 0.50rem auto 1rem;
+  }
+  .mp-contact-success {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Watermark — flow in document on mobile */
+  .mp-footer-bg {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    font-size: clamp(1.8rem, 8vw, 3.5rem);
+    padding: 1.25rem 0 1rem 1rem;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    border-top: 1.5px solid rgba(255,255,255,0.1);
+  }
+  .mp-footer-wm-logo { height: 0.75em; }
+}
+
+@media (max-width: 480px) {
+  /* Footer — small mobile */
+  .mp-footer-body { padding: 0.5rem; }
+  .mp-footer-bg {
+    font-size: clamp(1.5rem, 7vw, 2.5rem);
+    padding: 1rem 0 0.75rem 0.75rem;
+  }
+  .mp-footer-wm-logo { height: 0.7em; }
+}
