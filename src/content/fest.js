@@ -60,7 +60,7 @@ export const Fest = {
   certificateInstructions: (deadlines) => [
     `Last Date to download the certificate is ${formatDeadlineNotice(deadlines.certificatesClosingDate)}`,
     'Sign in with the Google account (Official VIT email).',
-    'Certificate for Rovaris 2026 organized by the Astronomy Club – VIT Stellar during graVITas 2026 will be available.',
+    'Certificates for all the events organized by the Astronomy Club – VIT Stellar during graVITas 2026 will be available.',
     'In case of any queries, please feel free to contact the Web & Tech Team Captain : Haneesh Yadav - 9103355700.',
   ],
   feedbackInstructions: (deadlines) => [
