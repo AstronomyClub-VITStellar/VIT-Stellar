@@ -23,6 +23,7 @@ function DomainSelectionContent({ deadlines }) {
   const [fullName, setFullName] = useState('');
   const [regNumber, setRegNumber] = useState('');
   const [vitEmail, setVitEmail] = useState('');
+  const [vitEmailTouched, setVitEmailTouched] = useState(false);
   const [contactNumber, setContactNumber] = useState('');
   const [firstPref, setFirstPref] = useState('');
   const [firstWhy, setFirstWhy] = useState('');
@@ -38,7 +39,8 @@ function DomainSelectionContent({ deadlines }) {
   const [regNumberStatus, setRegNumberStatus] = useState('idle');
   const regNumberCheckSeq = useRef(0);
 
-  const isEmailValid = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+  const isEmailValid = (value) =>
+    /^[^\s@]+@(vitstudent\.ac\.in|vit\.ac\.in)$/i.test(value.trim());
   const isPhoneValid = (value) => /^\d{10}$/.test(value.trim());
 
   const checkRegNumberAvailability = async () => {
@@ -86,7 +88,7 @@ function DomainSelectionContent({ deadlines }) {
         return regNumberStatus === 'taken' ? 'Registration Number Already filled form' : null;
       case 'vitEmail':
         if (vitEmail.trim() === '') return 'Please fill this field';
-        return !isEmailValid(vitEmail) ? 'Please enter a valid email address' : null;
+        return !isEmailValid(vitEmail) ? 'Please enter a VIT Domain email' : null;
       case 'contactNumber':
         if (contactNumber.trim() === '') return 'Please fill this field';
         return !isPhoneValid(contactNumber) ? 'Please enter a valid 10-digit contact number' : null;
@@ -141,7 +143,7 @@ function DomainSelectionContent({ deadlines }) {
       const row = {
         full_name: fullName.trim(),
         reg_number: regNumber.trim(),
-        vit_email: vitEmail.trim(),
+        vit_email: vitEmail.trim().toLowerCase(),
         contact_number: contactNumber.trim(),
         first_pref: firstPref,
         first_why: firstWhy.trim(),
@@ -275,15 +277,21 @@ function DomainSelectionContent({ deadlines }) {
                 <tr className="board-app-detail-item">
                   <td className="board-app-detail-label">VIT Email</td>
                   <td className="board-app-detail-value">
-                    <input
-                      id="domain-select-vitemail"
-                      type="email"
-                      className="board-app-detail-input"
-                      placeholder="Enter your VIT Email"
-                      value={vitEmail}
-                      onChange={(e) => setVitEmail(e.target.value)}
-                      required
-                    />
+                    <div className="board-app-input-row">
+                      <input
+                        id="domain-select-vitemail"
+                        type="email"
+                        className="board-app-detail-input"
+                        placeholder="Enter your VIT Email"
+                        value={vitEmail}
+                        onChange={(e) => setVitEmail(e.target.value)}
+                        onBlur={() => setVitEmailTouched(true)}
+                        required
+                      />
+                      {vitEmailTouched && !showValidation && vitEmail.trim() !== '' && !isEmailValid(vitEmail) && (
+                        <span className="board-app-inline-status board-app-inline-status--taken">Please enter a VIT Domain email</span>
+                      )}
+                    </div>
                     {getFieldError('vitEmail') && (
                       <p className="board-app-field-error">{getFieldError('vitEmail')}</p>
                     )}
