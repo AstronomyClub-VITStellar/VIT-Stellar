@@ -85,7 +85,9 @@ function DomainSelectionContent({ deadlines }) {
         return fullName.trim() === '' ? 'Please fill this field' : null;
       case 'regNumber':
         if (regNumber.trim() === '') return 'Please fill this field';
-        return regNumberStatus === 'taken' ? 'Registration Number Already filled form' : null;
+        // The "already filled the form" message is shown inline next to the
+        // field (like the VIT email one), so it isn't repeated here.
+        return null;
       case 'vitEmail':
         if (vitEmail.trim() === '') return 'Please fill this field';
         return !isEmailValid(vitEmail) ? 'Please enter a VIT Domain email' : null;
@@ -123,26 +125,27 @@ function DomainSelectionContent({ deadlines }) {
     }
     if (isSubmitting) return;
 
-    // Final safety net: re-verify right before submitting, in case the
-    // debounced/onBlur check hasn't resolved yet.
-    const reg = regNumber.trim();
-    const { data: stillTaken, error: checkError } = await supabase.rpc(
-      'domain_selection_reg_exists',
-      { p_reg: reg }
-    );
-    if (!checkError && stillTaken) {
-      setRegNumberStatus('taken');
-      setShowValidation(true);
-      return;
-    }
-
-    setSubmitError(null);
+    // Set immediately (before any await) so fast double taps on mobile
+    // can't fire a second submission.
     setIsSubmitting(true);
+    setSubmitError(null);
 
     try {
+      // Final safety net: re-verify right before submitting, in case the
+      // debounced/onBlur check hasn't resolved yet.
+      const reg = regNumber.trim();
+      const { data: stillTaken } = await supabase.rpc('domain_selection_reg_exists', {
+        p_reg: reg,
+      });
+      if (stillTaken) {
+        setRegNumberStatus('taken');
+        setShowValidation(true);
+        return;
+      }
+
       const row = {
         full_name: fullName.trim(),
-        reg_number: regNumber.trim(),
+        reg_number: reg,
         vit_email: vitEmail.trim().toLowerCase(),
         contact_number: contactNumber.trim(),
         first_pref: firstPref,
@@ -157,12 +160,24 @@ function DomainSelectionContent({ deadlines }) {
 
       setSubmitted(true);
     } catch (err) {
-      // Log a non-sensitive summary — avoid exposing Supabase internals in production
-      console.error('[DomainSelection] Submission failed:', err?.message ?? 'Unknown error');
-      if (err && err.code === '23505') {
+      // Log code/details so the real cause is visible in the console
+      console.error(
+        '[DomainSelection] Submission failed:',
+        err?.code,
+        err?.message,
+        err?.details,
+        err?.hint
+      );
+      const msg = String(err?.message || '');
+      if (err?.code === '23505') {
         setRegNumberStatus('taken');
-        setSubmitError('Registration Number Already filled form');
+        setSubmitError('Registration Number already filled the form');
+      } else if (/failed to fetch|network|load failed/i.test(msg)) {
+        setSubmitError(
+          'Network problem reaching the server. Switch to Wi-Fi or another network (or turn off Data Saver/private DNS) and try again.'
+        );
       } else {
+        // The real code/message is logged to the console above for debugging
         setSubmitError('Something went wrong while submitting. Please try again.');
       }
     } finally {
@@ -260,7 +275,7 @@ function DomainSelectionContent({ deadlines }) {
                         required
                       />
                       {regNumberStatus === 'taken' && (
-                        <span className="board-app-inline-status board-app-inline-status--taken">Registration Number Already filled form</span>
+                        <span className="board-app-inline-status board-app-inline-status--taken">Registration Number already filled the form</span>
                       )}
                       {regNumberStatus === 'error' && (
                         <span className="board-app-inline-status" style={{ color: '#f5a623' }}>
