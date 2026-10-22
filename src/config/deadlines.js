@@ -21,7 +21,7 @@ export const boardApplicationDeadlines = {
   resultsDate: new Date('2027-01-01T00:00:00+05:30'),
 };
 
-export const domainSelectionDeadlines = {
+export const recruitmentsDeadlines = {
   openDate: new Date('2026-12-01T00:00:00+05:30'),
   deadline: new Date('2026-12-01T23:59:59+05:30'),
 };

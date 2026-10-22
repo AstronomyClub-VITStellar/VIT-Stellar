@@ -42,7 +42,7 @@ Imports use the `@/` alias for `src/` (e.g. `import Icon from '@/components/ui/I
 | Change page text, team, events, FAQ          | `src/content/<section>.js`             |
 | Change a form open/close date                | `src/config/deadlines.js` **and** the time-lock policies in `supabase/setup.sql` |
 | Change the header announcement capsule       | `src/config/announcement.js`           |
-| Show/hide Board Application / Domain Selection / fest sponsor / fest POCs | `src/config/features.js` |
+| Show/hide Board Application / Recruitments / fest sponsor / fest POCs | `src/config/features.js` |
 | Add images/PDFs                              | `public/assets/...`                    |
 
 > The database enforces form deadlines (RLS policies use `now()`); `deadlines.js` only controls what the UI shows.

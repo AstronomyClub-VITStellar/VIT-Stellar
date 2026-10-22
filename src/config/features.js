@@ -7,5 +7,6 @@ export const FEATURES = {
 
   // Seasonal sections (built, but not shown until their window opens)
   boardApplication: false,
-  domainSelection: true,
+  recruitments: true,
+  interviewSchedule: true, // shown after recruitment interviews are scheduled
 };

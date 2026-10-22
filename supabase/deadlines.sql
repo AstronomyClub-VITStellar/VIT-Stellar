@@ -53,8 +53,8 @@ insert into deadlines (key, label, at) values
   ('board_slots_end',         'Board application — interview slots shown until', '2027-01-30 23:59:59+05:30'),
   ('board_results',           'Board application — results out',       '2027-01-01 00:00:00+05:30'),
 
-  ('domain_open',             'Domain selection — opens',              '2026-12-01 00:00:00+05:30'),
-  ('domain_deadline',         'Domain selection — last date',          '2026-12-01 23:59:59+05:30')
+  ('recruitment_open',         'Recruitments — opens',                  '2026-12-01 00:00:00+05:30'),
+  ('recruitment_deadline',     'Recruitments — last date',              '2026-12-01 23:59:59+05:30')
 on conflict (key) do nothing;
 
 -- 3b. Cleanup: the shots-upload feature was discontinued, so its row is removed.

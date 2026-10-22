@@ -15,7 +15,7 @@ const TeamSection = React.lazy(() => import('@/features/Team'));
 const MerchandiseSection = React.lazy(() => import('@/features/Merchandise'));
 const FestSection = React.lazy(() => import('@/features/Fest'));
 const BoardApplicationSection = React.lazy(() => import('@/features/BoardApplication'));
-const DomainSelectionSection = React.lazy(() => import('@/features/DomainSelection'));
+const RecruitmentsSection = React.lazy(() => import('@/features/Recruitments'));
 const EventsSection = React.lazy(() => import('@/features/Events'));
 const PublicationsSection = React.lazy(() => import('@/features/Publications'));
 const BlogsSection = React.lazy(() => import('@/features/Blogs'));
@@ -46,7 +46,7 @@ export default function LandingPage() {
           <MerchandiseSection />
           <FestSection />
           {features.boardApplication && <BoardApplicationSection />}
-          {features.domainSelection && <DomainSelectionSection />}
+          {features.recruitments && <RecruitmentsSection />}
           <EventsSection />
           <PublicationsSection />
           <BlogsSection />

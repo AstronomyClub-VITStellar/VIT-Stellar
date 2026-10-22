@@ -3502,6 +3502,37 @@ html, body, #root {
         .fest-cert-btn:hover:not(:disabled){ background: rgba(255,255,255,0.06); }
         .fest-cert-btn:disabled{ opacity: 0.6; cursor: default; }
         .fest-cert-btn .material-icons-round{ font-size: 18px; }
+
+        /* Interview schedule (inside Recruitments, below the form) */
+        .interview-schedule-block{ margin-top: 32px; }
+        .interview-table-wrap{ overflow-x: auto; }
+        .interview-table{
+          width: 100%;
+          border-collapse: collapse;
+          font-family: 'Poppins', sans-serif;
+        }
+        .interview-table th,
+        .interview-table td{
+          padding: 16px 22px;
+          text-align: left;
+          vertical-align: middle;
+          font-size: 14px;
+          color: var(--text, #f4f4f6);
+          border-bottom: 1px solid rgba(255,255,255,0.35);
+          border-right: 1px solid rgba(255,255,255,0.35);
+        }
+        .interview-table th:last-child,
+        .interview-table td:last-child{ border-right: none; }
+        .interview-table th{
+          background: rgba(255,255,255,0.035);
+          font-family: 'Stara-Medium', 'Stara', 'Poppins', sans-serif;
+          font-weight: 500;
+          font-size: 13px;
+          letter-spacing: 0.02em;
+          white-space: nowrap;
+        }
+        .interview-table td{ background: rgba(255,255,255,0.015); font-weight: 500; }
+        .interview-table tbody tr:last-child td{ border-bottom: none; }
         .merch-form-row{
           display: flex;
           align-items: stretch;
@@ -3814,6 +3845,20 @@ html, body, #root {
           .fest-cert-profile{ flex-wrap: wrap; padding: 14px 16px; gap: 12px; }
           .fest-cert-profile-info{ flex-basis: calc(100% - 66px); }
           .fest-cert-signout-btn{ width: 100%; justify-content: center; }
+          .interview-table, .interview-table tbody, .interview-table tr, .interview-table td{ display: block; width: 100%; }
+          .interview-table thead{ display: none; }
+          .interview-table tr{ border-bottom: 1px solid rgba(255,255,255,0.35); }
+          .interview-table tr:last-child{ border-bottom: none; }
+          .interview-table td{ padding: 0.7rem 1rem; border-bottom: none; border-right: none; font-size: 13.5px; }
+          .interview-table td::before{
+            content: attr(data-label);
+            display: block;
+            font-size: 11px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-dimmer, #9a9aa5);
+            margin-bottom: 2px;
+          }
           .board-app-inline-status{ padding: 4px 1rem 0; flex-basis: 100%; }
           .board-app-outer-card{ padding: 14px; }
           .merch-form-row{ gap: 14px; }

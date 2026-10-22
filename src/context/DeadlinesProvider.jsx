@@ -29,9 +29,9 @@ const SECTIONS = {
     board_slots_end: 'slotsEnd',
     board_results: 'resultsDate',
   },
-  domainSelection: {
-    domain_open: 'openDate',
-    domain_deadline: 'deadline',
+  recruitments: {
+    recruitment_open: 'openDate',
+    recruitment_deadline: 'deadline',
   },
 };
 

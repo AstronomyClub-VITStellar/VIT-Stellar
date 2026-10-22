@@ -1,7 +1,7 @@
 import { formatDeadlineNotice } from '../lib/dateUtils';
 
-export const DomainSelection = {
-  // Takes the domain-selection deadlines from Supabase.
+export const Recruitments = {
+  // Takes the recruitments deadlines from Supabase.
   formInstructions: (deadlines) => [
     `Last Date to fill the form is ${formatDeadlineNotice(deadlines.deadline)}`,
     'Fill in every field exactly as it should appear on record — double check the details you entered before submitting.',
@@ -15,5 +15,14 @@ export const DomainSelection = {
     "Research & Development",
     "Design & Creativity",
     "Publicity & Marketing",
+  ],
+};
+
+export const InterviewSchedule = {
+  instructions: [
+    'Sign in with the Google account (Official VIT email) only.',
+    'Only the interview slot(s) assigned to your VIT email will be shown here.',
+    'Please be present on the mentioned date and time. Interviews are scheduled based on your domain preferences.',
+    'In case of any queries, please feel free to contact any of the Board Members or reach us through the Contact Us section below.',
   ],
 };

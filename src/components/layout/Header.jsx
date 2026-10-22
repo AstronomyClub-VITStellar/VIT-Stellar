@@ -16,7 +16,7 @@ const ALL_NAV_LINKS = [
   { label: "Merchandise 2026",       href: "#merchandise",       show: false },
   { label: "Gravitas 2026",          href: "#fest",              show: true  },
   { label: "Board Application 2027", href: "#board-application", show: false },
-  { label: "Domain Selection 2026",  href: "#domain-selection",  show: false },
+  { label: "Recruitments 2026",      href: "#recruitments",       show: false },
   { label: "Events",                 href: "#events",            show: true  },
   { label: "Publications / Blogs",   href: "#publications",      show: true  },
   { label: "Partners",               href: "#partners",          show: true  },
