@@ -22,8 +22,8 @@ export const InterviewSchedule = {
   instructions: [
     'Sign in with the Google account (Official VIT email) only.',
     'Only the interview slot(s) assigned to your VIT email will be shown here.',
-    'Please be present on the mentioned date and time. Interviews are scheduled based on your domain preferences.',
-    'In case of any queries, please feel free to contact any of the Board Members or reach us through the Contact Us section below.',
+    'Please be present on the mentioned date and time. Interview link will be shared with you by respective panel members.',
+    'In case of any queries, please feel free to contact Recruitments Lead : Haneesh Yadav - 9103355700.',
   ],
 };
 
