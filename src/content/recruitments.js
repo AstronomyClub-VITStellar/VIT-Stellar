@@ -26,3 +26,12 @@ export const InterviewSchedule = {
     'In case of any queries, please feel free to contact any of the Board Members or reach us through the Contact Us section below.',
   ],
 };
+
+export const RecruitmentResults = {
+  instructions: [
+    'Sign in with the Google account (Official VIT email) only.',
+    'Only the result linked to your VIT email will be shown here.',
+    'Results are final once published. Selected members will be contacted with the next steps.',
+    'In case of any queries, please feel free to contact any of the Board Members or reach us through the Contact Us section below.',
+  ],
+};

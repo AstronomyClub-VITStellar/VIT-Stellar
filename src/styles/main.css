@@ -3533,6 +3533,36 @@ html, body, #root {
         }
         .interview-table td{ background: rgba(255,255,255,0.015); font-weight: 500; }
         .interview-table tbody tr:last-child td{ border-bottom: none; }
+        /* Recruitment results (below the interview schedule) */
+        .results-banner{
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 16px 22px;
+          border: 1px solid rgba(255,255,255,0.35);
+          font-family: 'Poppins', sans-serif;
+          font-weight: 600;
+          font-size: 14.5px;
+          line-height: 1.5;
+        }
+        .results-banner .material-icons-round{ font-size: 22px; flex: 0 0 auto; }
+        .results-banner--selected{ background: var(--green-bg, rgba(116,224,138,0.15)); color: var(--green, #74e08a); border-color: var(--green, #74e08a); }
+        .results-banner--waitlisted{ background: var(--orange-bg, rgba(245,166,77,0.15)); color: var(--orange, #f5a64d); border-color: var(--orange, #f5a64d); }
+        .results-banner--not-selected{ background: rgba(255,255,255,0.03); color: var(--text-dim, #c4c4c9); }
+        .results-badge{
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 5px 12px;
+          border-radius: 999px;
+          font-weight: 700;
+          font-size: 12.5px;
+          letter-spacing: 0.01em;
+        }
+        .results-badge .material-icons-round{ font-size: 16px; }
+        .results-badge--selected{ background: var(--green-bg, rgba(116,224,138,0.15)); color: var(--green, #74e08a); }
+        .results-badge--waitlisted{ background: var(--orange-bg, rgba(245,166,77,0.15)); color: var(--orange, #f5a64d); }
+        .results-badge--not-selected{ background: var(--red-bg, rgba(239,106,95,0.15)); color: var(--red, #ef6a5f); }
         .merch-form-row{
           display: flex;
           align-items: stretch;

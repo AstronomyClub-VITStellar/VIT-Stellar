@@ -9,4 +9,5 @@ export const FEATURES = {
   boardApplication: false,
   recruitments: true,
   interviewSchedule: true, // shown after recruitment interviews are scheduled
+  recruitmentResults: false, // shown once recruitment results are published
 };

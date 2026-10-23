@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Icon from '@/components/ui/Icon';
-import { Recruitments, InterviewSchedule } from '@/content/recruitments';
+import { Recruitments, InterviewSchedule, RecruitmentResults } from '@/content/recruitments';
 import { useCountdown } from '@/hooks/useCountdown';
 import { useDeadlines } from '@/hooks/useDeadlines';
 import { pad } from '@/lib/dateUtils';
@@ -15,6 +15,7 @@ import {
 } from '@/lib/scrollToSection';
 
 const SECTION_SELECTOR = '#interview-schedule';
+const RESULTS_SELECTOR = '#recruitment-results';
 
 // ── Interview Schedule ─────────────────────────────────────────────────────
 // Shown below the form once interviews are scheduled (features.interviewSchedule).
@@ -67,15 +68,14 @@ function formatInterviewDate(value) {
   });
 }
 
-function InterviewScheduleCard() {
+// ── Shared Google sign-in (Interview Schedule + Results) ───────────────────
+// Both cards use the same Supabase session, so signing in on one signs in the
+// other. `sectionSelector` is where to scroll back to after the Google redirect.
+function useVitGoogleAuth(sectionSelector, logTag) {
   const [session, setSession] = useState(null);
   const [sessionChecked, setSessionChecked] = useState(false);
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [signInError, setSignInError] = useState(null);
-
-  const [rows, setRows] = useState(null); // null = not loaded yet, [] = loaded, none found
-  const [isLoading, setIsLoading] = useState(false);
-  const [loadError, setLoadError] = useState(null);
 
   // Pick up the existing session, then stay in sync with sign-in / sign-out
   // (including the redirect back from Google).
@@ -99,6 +99,94 @@ function InterviewScheduleCard() {
     return () => listener.subscription.unsubscribe();
   }, []);
 
+  // Google sign-in leaves the site and comes back at the top of the page.
+  // If we left from this section, bring the visitor straight back to it.
+  useEffect(() => {
+    const selector = peekReturnScroll();
+    if (selector !== sectionSelector) return;
+    return holdScrollOnSelector(selector, { onDone: clearReturnScroll });
+  }, [sectionSelector]);
+
+  const handleGoogleSignIn = async () => {
+    if (isSigningIn) return;
+    setSignInError(null);
+    setIsSigningIn(true);
+    rememberReturnScroll(sectionSelector);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: window.location.href,
+          // hd is only a UI hint; the real checks are above and in the database.
+          queryParams: { hd: ALLOWED_EMAIL_DOMAIN, prompt: 'select_account' },
+        },
+      });
+      if (error) throw error;
+    } catch (err) {
+      console.error(`[${logTag}] Google sign-in failed:`, err?.message ?? 'Unknown error');
+      clearReturnScroll();
+      setSignInError('Something went wrong while signing in. Please try again.');
+      setIsSigningIn(false);
+    }
+  };
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+  };
+
+  return { session, sessionChecked, isSigningIn, signInError, handleGoogleSignIn, handleSignOut };
+}
+
+function GoogleSignInGate({ onSignIn, isSigningIn, error }) {
+  return (
+    <div className="google-signin-wrap">
+      <button
+        type="button"
+        className="google-signin-btn"
+        onClick={onSignIn}
+        disabled={isSigningIn}
+        aria-disabled={isSigningIn}
+      >
+        <GoogleIcon />
+        <span>{isSigningIn ? 'Redirecting…' : 'Continue with Google'}</span>
+      </button>
+      {error && (
+        <p className="board-app-field-error" style={{ padding: '10px 0 0', textAlign: 'center' }}>
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function AccountProfile({ session, onSignOut }) {
+  const meta = session.user.user_metadata || {};
+  const displayName = meta.full_name || meta.name || '';
+  const email = session.user.email;
+  return (
+    <div className="fest-cert-profile">
+      <AccountAvatar url={meta.avatar_url || meta.picture} label={displayName || email} />
+      <div className="fest-cert-profile-info">
+        <span className="fest-cert-profile-label">Signed in as</span>
+        {displayName && <span className="fest-cert-profile-name">{displayName}</span>}
+        <span className="fest-cert-profile-email">{email}</span>
+      </div>
+      <button type="button" className="fest-cert-signout-btn" onClick={onSignOut}>
+        Sign out
+        <Icon name="logout" />
+      </button>
+    </div>
+  );
+}
+
+function InterviewScheduleCard() {
+  const { session, sessionChecked, isSigningIn, signInError, handleGoogleSignIn, handleSignOut } =
+    useVitGoogleAuth(SECTION_SELECTOR, 'InterviewSchedule');
+
+  const [rows, setRows] = useState(null); // null = not loaded yet, [] = loaded, none found
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadError, setLoadError] = useState(null);
+
   // Once signed in, fetch the schedule. RLS on `recruitments_interview` only
   // returns rows whose email matches the signed-in Google account, so this can
   // never return anyone else's interview.
@@ -114,7 +202,7 @@ function InterviewScheduleCard() {
     (async () => {
       const { data, error } = await supabase
         .from('recruitments_interview')
-        .select('id, reg_number, full_name, domain, interview_date, interview_time')
+        .select('id, domain, domain_preference, interview_date, interview_time')
         .order('interview_date', { ascending: true })
         .order('interview_time', { ascending: true });
       if (cancelled) return;
@@ -129,41 +217,6 @@ function InterviewScheduleCard() {
     })();
     return () => { cancelled = true; };
   }, [session]);
-
-  // Google sign-in leaves the site and comes back at the top of the page.
-  // If we left from this section, bring the visitor straight back to it.
-  useEffect(() => {
-    const selector = peekReturnScroll();
-    if (selector !== SECTION_SELECTOR) return;
-    return holdScrollOnSelector(selector, { onDone: clearReturnScroll });
-  }, []);
-
-  const handleGoogleSignIn = async () => {
-    if (isSigningIn) return;
-    setSignInError(null);
-    setIsSigningIn(true);
-    rememberReturnScroll(SECTION_SELECTOR);
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: window.location.href,
-          // hd is only a UI hint; the real checks are above and in the database.
-          queryParams: { hd: ALLOWED_EMAIL_DOMAIN, prompt: 'select_account' },
-        },
-      });
-      if (error) throw error;
-    } catch (err) {
-      console.error('[InterviewSchedule] Google sign-in failed:', err?.message ?? 'Unknown error');
-      clearReturnScroll();
-      setSignInError('Something went wrong while signing in. Please try again.');
-      setIsSigningIn(false);
-    }
-  };
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-  };
 
   return (
     <div className="board-app-outer-card">
@@ -184,44 +237,10 @@ function InterviewScheduleCard() {
       </div>
 
       {!sessionChecked ? null : !session ? (
-        <div className="google-signin-wrap">
-          <button
-            type="button"
-            className="google-signin-btn"
-            onClick={handleGoogleSignIn}
-            disabled={isSigningIn}
-            aria-disabled={isSigningIn}
-          >
-            <GoogleIcon />
-            <span>{isSigningIn ? 'Redirecting…' : 'Continue with Google'}</span>
-          </button>
-          {signInError && (
-            <p className="board-app-field-error" style={{ padding: '10px 0 0', textAlign: 'center' }}>
-              {signInError}
-            </p>
-          )}
-        </div>
+        <GoogleSignInGate onSignIn={handleGoogleSignIn} isSigningIn={isSigningIn} error={signInError} />
       ) : (
         <div className="fest-cert-account">
-          {(() => {
-            const meta = session.user.user_metadata || {};
-            const displayName = meta.full_name || meta.name || '';
-            const email = session.user.email;
-            return (
-              <div className="fest-cert-profile">
-                <AccountAvatar url={meta.avatar_url || meta.picture} label={displayName || email} />
-                <div className="fest-cert-profile-info">
-                  <span className="fest-cert-profile-label">Signed in as</span>
-                  {displayName && <span className="fest-cert-profile-name">{displayName}</span>}
-                  <span className="fest-cert-profile-email">{email}</span>
-                </div>
-                <button type="button" className="fest-cert-signout-btn" onClick={handleSignOut}>
-                  Sign out
-                  <Icon name="logout" />
-                </button>
-              </div>
-            );
-          })()}
+          <AccountProfile session={session} onSignOut={handleSignOut} />
 
           {isLoading && <p className="fest-cert-status">Looking up your interview schedule…</p>}
 
@@ -241,9 +260,8 @@ function InterviewScheduleCard() {
               <table className="interview-table">
                 <thead>
                   <tr>
-                    <th>Registration Number</th>
-                    <th>Name</th>
                     <th>Domain</th>
+                    <th>Domain Preference</th>
                     <th>Interview Date</th>
                     <th>Interview Time</th>
                   </tr>
@@ -251,9 +269,8 @@ function InterviewScheduleCard() {
                 <tbody>
                   {rows.map((r) => (
                     <tr key={r.id}>
-                      <td data-label="Registration Number">{r.reg_number}</td>
-                      <td data-label="Name">{r.full_name}</td>
                       <td data-label="Domain">{r.domain}</td>
+                      <td data-label="Domain Preference">{r.domain_preference}</td>
                       <td data-label="Interview Date">{formatInterviewDate(r.interview_date)}</td>
                       <td data-label="Interview Time">{r.interview_time}</td>
                     </tr>
@@ -261,6 +278,140 @@ function InterviewScheduleCard() {
                 </tbody>
               </table>
             </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Recruitment Results ────────────────────────────────────────────────────
+// Shown below the Interview Schedule once results are published
+// (features.recruitmentResults). Same Google sign-in; RLS on
+// `recruitments_results` only returns rows for the signed-in email.
+// Expected columns: id, domain, status ('selected' | 'waitlisted' | 'not_selected').
+const RESULT_STATUS = {
+  selected: { label: 'Selected', icon: 'check_circle', cls: 'selected' },
+  waitlisted: { label: 'Waitlisted', icon: 'schedule', cls: 'waitlisted' },
+  not_selected: { label: 'Not Selected', icon: 'cancel', cls: 'not-selected' },
+};
+const getResultStatus = (status) =>
+  RESULT_STATUS[String(status || '').toLowerCase().replace(/[\s-]+/g, '_')] || RESULT_STATUS.not_selected;
+
+function RecruitmentResultsCard() {
+  const { session, sessionChecked, isSigningIn, signInError, handleGoogleSignIn, handleSignOut } =
+    useVitGoogleAuth(RESULTS_SELECTOR, 'RecruitmentResults');
+
+  const [rows, setRows] = useState(null); // null = not loaded yet, [] = loaded, none found
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadError, setLoadError] = useState(null);
+
+  useEffect(() => {
+    if (!session) {
+      setRows(null);
+      setLoadError(null);
+      return;
+    }
+    let cancelled = false;
+    setIsLoading(true);
+    setLoadError(null);
+    (async () => {
+      const { data, error } = await supabase
+        .from('recruitments_results')
+        .select('id, domain, status')
+        .order('id', { ascending: true });
+      if (cancelled) return;
+      if (error) {
+        console.error('[RecruitmentResults] Lookup failed:', error.message);
+        setLoadError('Could not load your result. Please try again.');
+        setRows([]);
+      } else {
+        setRows(data ?? []);
+      }
+      setIsLoading(false);
+    })();
+    return () => { cancelled = true; };
+  }, [session]);
+
+  const anySelected = !!rows?.some((r) => getResultStatus(r.status).cls === 'selected');
+  const anyWaitlisted = !!rows?.some((r) => getResultStatus(r.status).cls === 'waitlisted');
+
+  return (
+    <div className="board-app-outer-card">
+      <div className="team-form-heading">
+        <Icon name="emoji_events" />
+        <span>Recruitment Results</span>
+      </div>
+      <div className="merch-instructions-box">
+        <div className="merch-instructions-title">
+          <Icon name="info" />
+          <span>Important Instructions</span>
+        </div>
+        <ul className="merch-instructions-list">
+          {RecruitmentResults.instructions.map((line, i) => (
+            <li key={i}>{line}</li>
+          ))}
+        </ul>
+      </div>
+
+      {!sessionChecked ? null : !session ? (
+        <GoogleSignInGate onSignIn={handleGoogleSignIn} isSigningIn={isSigningIn} error={signInError} />
+      ) : (
+        <div className="fest-cert-account">
+          <AccountProfile session={session} onSignOut={handleSignOut} />
+
+          {isLoading && <p className="fest-cert-status">Looking up your result…</p>}
+
+          {loadError && (
+            <p className="board-app-field-error" style={{ padding: '10px 0' }}>{loadError}</p>
+          )}
+
+          {!isLoading && rows && rows.length === 0 && !loadError && (
+            <p className="fest-cert-status">
+              No result found for this email. If you have filled the Recruitments form, please check
+              back later or reach us through the Contact Us section below.
+            </p>
+          )}
+
+          {!isLoading && rows && rows.length > 0 && (
+            <>
+              <div className={`results-banner results-banner--${anySelected ? 'selected' : anyWaitlisted ? 'waitlisted' : 'not-selected'}`}>
+                <Icon name={anySelected ? 'celebration' : anyWaitlisted ? 'schedule' : 'favorite'} />
+                <span>
+                  {anySelected
+                    ? 'Congratulations! You have been selected for the club.'
+                    : anyWaitlisted
+                      ? 'You are on the waitlist. We will reach out if a spot opens up.'
+                      : 'Thank you for applying. Unfortunately you were not selected this time — we hope to see you apply again!'}
+                </span>
+              </div>
+              <div className="board-app-card interview-table-wrap">
+                <table className="interview-table">
+                  <thead>
+                    <tr>
+                      <th>Domain</th>
+                      <th>Result</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rows.map((r) => {
+                      const st = getResultStatus(r.status);
+                      return (
+                        <tr key={r.id}>
+                          <td data-label="Domain">{r.domain}</td>
+                          <td data-label="Result">
+                            <span className={`results-badge results-badge--${st.cls}`}>
+                              <Icon name={st.icon} />
+                              <span>{st.label}</span>
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </>
           )}
         </div>
       )}
@@ -451,8 +602,8 @@ function RecruitmentsContent({ deadlines }) {
   const phase = computeRecruitmentsPhase(deadlines);
 
   // After the deadline the form box disappears. The section only stays (heading +
-  // interview schedule) while the interview schedule is switched on.
-  if (phase === 'closed' && !features.interviewSchedule) return null;
+  // interview schedule / results) while one of those is switched on.
+  if (phase === 'closed' && !features.interviewSchedule && !features.recruitmentResults) return null;
 
   return (
     <section className="section" id="recruitments">
@@ -709,6 +860,12 @@ function RecruitmentsContent({ deadlines }) {
         {features.interviewSchedule && (
           <div id="interview-schedule" className="interview-schedule-block">
             <InterviewScheduleCard />
+          </div>
+        )}
+
+        {features.recruitmentResults && (
+          <div id="recruitment-results" className="interview-schedule-block">
+            <RecruitmentResultsCard />
           </div>
         )}
       </div>
